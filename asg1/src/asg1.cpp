@@ -41,7 +41,7 @@ void blobCallback(const cmvision::Blobs::ConstPtr& msg){
     // TODO: decide what velocities to publish based on blob info
 
     output.linear.x = 0; // TODO: fill in this with some number for fwd velocity (meters/sec)
-    output.angular.x = 0; // TODO: fill this in with some angular velocity (radians/sec)
+    output.angular.z = 0; // TODO: fill this in with some angular velocity (radians/sec)
 
     velocity_pub.publish(output); // publish this velocity message that we filled in
   }
