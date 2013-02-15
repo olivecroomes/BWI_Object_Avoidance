@@ -14,9 +14,13 @@ void blobCallback(const cmvision::Blobs::ConstPtr& msg){
   std::cout << "got blob message, count: " << msg->blob_count << std::endl;
 
   // first, we can check if any blobs were found
+  // blobs are regions of a single color found in the camera image
   if (msg->blob_count > 0){
 
     // we may want to access / look at multiple blobs in the array
+    // this array is all the blobs found in the latest camera image
+    // you may have multiple blobs because there were multiple balls
+    // but also because the ball may have been broken into multiple blobs
     for (int i = 0; i < msg->blob_count; i++){
 
       // another example print with some blob info
@@ -39,6 +43,9 @@ void blobCallback(const cmvision::Blobs::ConstPtr& msg){
     }
 
     // TODO: decide what velocities to publish based on blob info
+
+    // you probably want to set these to zero when you do not see any blobs
+    // you may want to work on turning first, and then fwd/backward
 
     output.linear.x = 0; // TODO: fill in this with some number for fwd velocity (meters/sec)
     output.angular.z = 0; // TODO: fill this in with some angular velocity (radians/sec)
