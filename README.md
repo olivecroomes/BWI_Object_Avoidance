@@ -1,5 +1,7 @@
 How to run our program:
+
 1. turn on the laptop
+
 2. turn on the segway base
 
 3. on the laptop, run 
