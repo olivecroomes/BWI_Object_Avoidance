@@ -34,11 +34,11 @@ void unsafeCallback(const geometry_msgs::Twist& msg) {
 		velocity_pub.publish(current);
 	}
 }
-
+/*
 void depthCallback(){
 
 }
-
+*/
 void scanCallback(const sensor_msgs::LaserScan& msg) {
 
 	
@@ -54,13 +54,14 @@ void scanCallback(const sensor_msgs::LaserScan& msg) {
 		//eliminates 0's
 		if (val >= msg.range_min && val <= msg.range_max) {
 
-			if (0.2 <= val && val <= 0.55) {
+			if (0.2 <= val && val <= 0.65) {
 				safeToMove = false;
 				break;
 			}
 
 		}
 	}
+								
 	double sum = std::accumulate(myvector.begin(), myvector.end(), 0.0);
 	double mean = sum / myvector.size();
 	speedFactor = (1 - (mean / msg.range_max));
@@ -78,8 +79,8 @@ int main(int argc, char **argv) {
 	ros::Subscriber teleopSub = n.subscribe("cmd_vel_unsafe", 1000,
 			unsafeCallback);
 			
-	ros::Subscriber kinectSub = n.subscribe("",1000,depthCallback);
-	// advertise that we will publish cmd_vel messages
+	//ros::Subscriber kinectSub = n.subscribe("",1000,depthCallback);
+	
 	velocity_pub = n.advertise < geometry_msgs::Twist > ("cmd_vel", 1000);
 
 	ros::Rate loop_rate(100);
