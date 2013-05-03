@@ -1,0 +1,2 @@
+roslaunch objectAvoidance object_avoidance.launch --screen
+rosrun objectAvoidance avoidance

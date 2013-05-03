@@ -1,0 +1,17 @@
+<package>
+  <description brief="objectAvoidance">
+
+     objectAvoidance
+
+  </description>
+  <author>Oliver Croomes</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/objectAvoidance</url>
+  <depend_package="geometry_msgs"/>
+  <depend_package="cmvision"/>
+<!-- we need us some dependencies ya'll -->	
+
+</package>
+
+

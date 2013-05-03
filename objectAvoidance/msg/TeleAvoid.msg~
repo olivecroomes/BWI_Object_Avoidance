@@ -1,0 +1,10 @@
+#int8
+#uint8
+#int16
+#int32
+#float32
+#float64
+#string
+#time
+#duration
+#^^^ these are possible message types we could publish

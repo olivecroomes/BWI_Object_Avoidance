@@ -1,0 +1,80 @@
+#include "ros/ros.h"
+#include "geometry_msgs/Twist.h"
+#include "cmvision/Blobs.h"
+#include "sensor_msgs/LaserScan.h"
+#include <stdio.h>
+#include <vector>
+#include <algorithm>
+#include <iostream>
+
+ros::Publisher velocity_pub;
+//the robot will keep running as long as there are
+//double stop_Min = 0.400
+//double stop_Max = 0.600
+
+void scanCallback(const sensor_msgs::LaserScan& msg){
+
+	geometry_msgs::Twist stop;
+	stop.linear.x = 0;
+
+	//shallow copy, only meant to be pedantic.
+	std::vector<float> myvector = msg.ranges;
+    
+	//std::sort(myvector.begin(), myvector.end());
+
+        double stop_Min = msg.range_min;
+	double stop_Max = msg.range_max;
+
+
+    std::cout << "myvector contains:";
+	float min = 999999;
+   for (std::vector<float>::iterator it=myvector.begin(); it!=myvector.end(); ++it){
+
+	//the current value we're iterating through.
+        float val = *it;
+	
+ 
+	if(val >= stop_Min && val <= stop_Max )
+     	{
+	  std::cout <<  " " << val;
+	  //	velocity_pub.publish(stop);
+	  //	break;\
+
+	  if(val < min){
+	    min= val;
+	  }
+
+     	}
+     	
+
+    }
+
+
+    std::cout << "minimum:"<< min;
+    std::cout << '\n';  
+
+}
+
+
+int main(int argc, char **argv){
+
+	ros::init(argc, argv, "follower");
+	ros::NodeHandle n;
+
+	// advertise that we will publish cmd_vel messages
+	velocity_pub = n.advertise<geometry_msgs::Twist>("cmd_vel", 1000);
+
+	// subscribe to blob messages and call blobCallback when they are received
+	//ros::Subscriber sub = n.subscribe("blobs", 1000, blobCallback);   
+	
+	ros::Subscriber sub = n.subscribe("scan",1000,scanCallback);
+	
+	ros::Rate loop_rate(10);
+
+	ros::spin();
+
+
+	return 0;
+}
+
+

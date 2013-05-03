@@ -1,0 +1,14 @@
+<launch>
+
+  <!--node pkg="objectAvoidance" type="avoidance" name="Safe_Teleop"-->
+
+
+	<!-- Starts the new teleop node-->
+  <node pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" name="Teleop">
+    
+    <remap from="cmd_vel" to="cmd_vel_unsafe" />
+  </node>
+     
+  <!--node pkg="segbot_bringup" type="segway_base.launch" name="SegwayBase" /-->
+
+</launch>
